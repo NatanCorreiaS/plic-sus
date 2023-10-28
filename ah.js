@@ -1,1 +1,0 @@
-const funcione = "porra";
