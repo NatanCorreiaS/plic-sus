@@ -1,0 +1,1 @@
+const natan = "ok";
