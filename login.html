@@ -85,30 +85,30 @@
     </nav>
     <!-- Main -->
     <main class="container text-dark p-2 border-2 rounded-2 w-50 shadow-lg">
-        <form action="">
-            <h2 class="text-center">Login</h2>
-            <label class="form-label lead" for="cpf">CPF</label>
-            <input type="text" name="cpf" id="cpf" class="form-control" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="XXX.XXX.XXX-XX" oninput="formatarCPF(this)">
-        </form>
+      <form action="">
+        <h2 class="text-center">Login</h2>
+        <div class="mb-3">
+          <label class="form-label lead" for="cpf">CPF</label>
+          <input
+            type="text"
+            id="cpf"
+            class="form-control"
+            name="cpf"
+            oninput="formatCPF(this.value)"
+          />
+        </div>
+      </form>
     </main>
     <footer class="text-white text-center p-2 mt-2">
-      <h5 class="fs-6">Um desenvovimento Unex SI 2023.</h3>
+      <h5 class="fs-6">Um desenvovimento Unex SI 2023.</h5>
     </footer>
     <script>
-    function formatarCPF(campo) {
-      // Remove caracteres não numéricos
-      let cpfAtualizado = campo.value.replace(/\D/g, '');
-
-      // Adiciona os pontos e o traço
-      if (cpfAtualizado.length > 3) {
-        cpfAtualizado = cpfAtualizado.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+      // Função para formatar CPF
+      function formatCPF(cpf) {
+        cpf = cpf.replace(/\D/g, ""); // Remove caracteres não numéricos
+        cpf = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+        document.getElementById("cpf").value = cpf;
       }
-      console.log(cpfAtualizado);
-      // Atualiza o valor no campo
-      campo.value = cpfAtualizado;
-      console.log(campo.value)
-
-    }
-  </script>
+    </script>
   </body>
 </html>
