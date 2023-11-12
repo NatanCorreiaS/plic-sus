@@ -83,7 +83,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-6">
             <h2 class="text-center mb-5 mt-3">Login</h2>
-            <form action="" class="">
+            <form>
               <div class="mb-3">
                 <label class="form-label" for="cpf">CPF</label>
                 <input
@@ -108,8 +108,12 @@
                   title="A senha deve conter entre 8 e 20 caracteres"
                 />
               </div>
-              <div class="mb-5 text-center">
-                <button class="btn btn-primary w-50" type="submit">
+              <div id="login-button" class="mb-5 text-center">
+                <button
+                  onclick="login()"
+                  class="btn btn-primary w-50"
+                  type="submit"
+                >
                   Logar
                 </button>
               </div>
@@ -135,5 +139,6 @@
       </h5>
     </footer>
     <script src="./js/cpfFormatting.js"></script>
+    <script src="./js/login.js"></script>
   </body>
 </html>
