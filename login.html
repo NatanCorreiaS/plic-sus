@@ -6,7 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sobre - AgendaAI</title>
+    <title>Login - AgendaAI</title>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -16,7 +16,7 @@
     />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg mb-2">
+    <nav class="navbar navbar-expand-lg mb-4">
       <div class="container-fluid">
         <a
           href="./index.html"
@@ -67,12 +67,12 @@
                 <a class="nav-link text-white" href="#">Contato</a>
               </li>
               <li class="nav-item mx-2">
-                <a class="nav-link text-white" href="#">Sobre</a>
+                <a class="nav-link text-white" href="./about.html">Sobre</a>
               </li>
             </ul>
             <!-- LOGIN -->
             <div class="d-flex justify-content-center align-items-center gap-3">
-              <a href="./login.html" class="text-white text-decoration-none">Login</a>
+              <a href="#" class="text-white text-decoration-none">Login</a>
               <a
                 href="#"
                 class="text-primary text-decoration-none px-3 py-1 bg-white rounded-4"
@@ -83,8 +83,32 @@
         </div>
       </div>
     </nav>
+    <!-- Main -->
+    <main class="container text-dark p-2 border-2 rounded-2 w-50 shadow-lg">
+        <form action="">
+            <h2 class="text-center">Login</h2>
+            <label class="form-label lead" for="cpf">CPF</label>
+            <input type="text" name="cpf" id="cpf" class="form-control" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="XXX.XXX.XXX-XX" oninput="formatarCPF(this)">
+        </form>
+    </main>
     <footer class="text-white text-center p-2 mt-2">
       <h5 class="fs-6">Um desenvovimento Unex SI 2023.</h3>
     </footer>
+    <script>
+    function formatarCPF(campo) {
+      // Remove caracteres não numéricos
+      let cpfAtualizado = campo.value.replace(/\D/g, '');
+
+      // Adiciona os pontos e o traço
+      if (cpfAtualizado.length > 3) {
+        cpfAtualizado = cpfAtualizado.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+      }
+      console.log(cpfAtualizado);
+      // Atualiza o valor no campo
+      campo.value = cpfAtualizado;
+      console.log(campo.value)
+
+    }
+  </script>
   </body>
 </html>
