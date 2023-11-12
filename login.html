@@ -31,29 +31,46 @@
         <button
           class="navbar-toggler"
           type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar"
+          data-bs-toggle="collapse"
+          data-bs-target="#nav-collapse"
           aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- About -->
-        <div>
-          <a class="text-white text-decoration-none" href="./about.html"
-            >Sobre</a
+        <div class="collapse navbar-collapse" id="nav-collapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a href="./about.html" class="nav-link text-white">Sobre</a>
+            </li>
+          </ul>
+          <ul
+            class="navbar-nav ms-auto mb-2 mb-lg-0 justify-content-md-center align-items-md-center"
           >
-        </div>
-        <!-- LOGIN -->
-        <div class="d-flex justify-content-center align-items-center gap-3">
-          <a href="./login.html" class="text-white text-decoration-none"
-            >Login</a
-          >
-          <a
-            href="#"
-            class="text-primary text-decoration-none px-3 py-1 bg-white rounded-4"
-            >Registre-se</a
-          >
+            <li class="nav-item">
+              <a
+                href="./login.html"
+                class="text-white text-decoration-none nav-link"
+                >Login</a
+              >
+            </li>
+            <!-- BLOCO DE REGISTRE-SE -->
+            <!-- Exibir o elemento quando a tela for pequena and eliminar quando for media ou maior -->
+            <li class="nav-item d-none d-sm-block">
+              <a
+                href="#"
+                class="nav-link text-primary text-decoration-none px-md-3 py-md-1 bg-white rounded-4"
+                >Registre-se</a
+              >
+            </li>
+            <!-- Para eliminar o elemento quando a tela for pequena -->
+            <li class="nav-item d-sm-none">
+              <a
+                href="#"
+                class="d-sm-none nav-link text-white text-decoration-none"
+                >Registre-se</a
+              >
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
