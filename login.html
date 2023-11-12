@@ -84,31 +84,30 @@
       </div>
     </nav>
     <!-- Main -->
-    <main class="container text-dark p-2 border-2 rounded-2 w-50 shadow-lg">
-      <form action="">
-        <h2 class="text-center">Login</h2>
-        <div class="mb-3">
-          <label class="form-label lead" for="cpf">CPF</label>
-          <input
-            type="text"
-            id="cpf"
-            class="form-control"
-            name="cpf"
-            oninput="formatCPF(this.value)"
-          />
+    <main class="container-fluid">
+      <section
+        id="login"
+        class="container text-dark p-2 border-2 rounded-2 w-75 shadow-lg"
+      >
+        <div class="row justify-content-start">
+          <h2 class="text-center mb-5 mt-3">Login</h2>
+            <form action="">
+              <label class="form-label" for="cpf">CPF</label>
+              <input
+                type="text"
+                id="cpf"
+                class="form-control"
+                name="cpf"
+                oninput="formatCPF(this.value)"
+              />
+            </form>
+          </div>
         </div>
-      </form>
+      </section>
     </main>
     <footer class="text-white text-center p-2 mt-2">
       <h5 class="fs-6">Um desenvovimento Unex SI 2023.</h5>
     </footer>
-    <script>
-      // Função para formatar CPF
-      function formatCPF(cpf) {
-        cpf = cpf.replace(/\D/g, ""); // Remove caracteres não numéricos
-        cpf = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
-        document.getElementById("cpf").value = cpf;
-      }
-    </script>
+    <script src="./js/cpfFormatting.js"></script>
   </body>
 </html>
