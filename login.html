@@ -16,7 +16,7 @@
     />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg mb-4">
+    <nav class="navbar navbar-expand-lg mb-lg-5 mb-5">
       <div class="container-fluid">
         <a
           href="./index.html"
@@ -84,10 +84,10 @@
       </div>
     </nav>
     <!-- Main -->
-    <main class="container-fluid">
+    <main class="container-fluid align-items-center h-75">
       <section
         id="login"
-        class="container text-dark p-2 border-2 rounded-2 shadow-lg"
+        class="container text-dark p-2 border-2 rounded-2 shadow-lg align-items-center h-100"
       >
         <div class="row justify-content-center">
           <div class="col-lg-6">
@@ -112,14 +112,32 @@
                   id="password"
                   class="form-control"
                   placeholder="Digite sua senha"
+                  min="8"
+                  max="20"
+                  title="A senha deve conter entre 8 e 20 caracteres"
                 />
+              </div>
+              <div class="mb-5 text-center">
+                <button class="btn btn-primary w-50" type="submit">
+                  Logar
+                </button>
+              </div>
+              <div id="no-account" class="mb-3">
+                <p class="text-center">
+                  Não possui uma conta?
+                  <a class="ms-3 btn btn-success" href="./register.html"
+                    >Registre-se</a
+                  >
+                </p>
               </div>
             </form>
           </div>
         </div>
       </section>
     </main>
-    <footer class="text-white text-center p-2 mt-2">
+    <footer
+      class="container-fluid text-white text-center p-2 position-absolute bottom-0"
+    >
       <h5 class="fs-6">Um desenvolvimento Unex SI 2023.</h5>
     </footer>
     <script src="./js/cpfFormatting.js"></script>
