@@ -83,7 +83,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-6">
             <h2 class="text-center mb-5 mt-3">Login</h2>
-            <form>
+            <form method="post" onsubmit="redirect()">
               <div class="mb-3">
                 <label class="form-label" for="cpf">CPF</label>
                 <input
@@ -109,11 +109,7 @@
                 />
               </div>
               <div id="login-button" class="mb-5 text-center">
-                <button
-                  onclick="login()"
-                  class="btn btn-primary w-50"
-                  type="submit"
-                >
+                <button class="btn btn-primary w-50" type="button">
                   Logar
                 </button>
               </div>
@@ -139,7 +135,11 @@
       </h5>
     </footer>
     <script src="./js/cpfFormatting.js"></script>
-    <script src="./js/login.js"></script>
     <script src="./js/auth.js"></script>
+    <script>
+      if (getCookieValue("Username")) {
+        window.location.href = "./user.html";
+      }
+    </script>
   </body>
 </html>

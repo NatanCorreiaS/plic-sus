@@ -1,3 +1,36 @@
+const cpf = document.getElementById("cpf");
+const password = document.getElementById("password");
+const loginButton = document.getElementById("login-button");
+
+const login = async () => {
+  // Envia os dados do formulário para o servidor
+  // document.querySelector("form").submit();
+
+  // Evita que a página seja recarregada
+  // window.location.href = "#";
+
+  //   Evita que a página seja recarregada, porém está obsoleta
+  event.preventDefault();
+
+  await fetch("http://localhost:5000/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      cpf: cpf.value,
+      password: password.value,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      document.cookie = "Session:" + data.session;
+    });
+
+  await receiveUser();
+  await redirect();
+};
+
 const getCookieValue = (cookieName) => {
   // Exemplo do valor do cookie
   const cookieValue = document.cookie;
@@ -21,10 +54,16 @@ const getCookieValue = (cookieName) => {
   }
 };
 
-const receiveUser = () => {
+const receiveUser = async () => {
   if (document.cookie) {
     console.log("receive user function used");
-    fetch("http://localhost:5000/api/session", {
+    if (
+      getCookieValue("Session") === undefined ||
+      getCookieValue("Session" === null)
+    ) {
+      return;
+    }
+    await fetch("http://localhost:5000/api/session", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,19 +81,23 @@ const receiveUser = () => {
         ) {
           // Verifica se o cookie já existe
           if (!getCookieValue("Username") || !getCookieValue("CPF")) {
+            console.log("distribuindo dados do usuário");
             document.cookie = document.cookie + ",Username:" + data.username;
             document.cookie = document.cookie + ",CPF:" + data.cpf;
-          }
-          if (
-            window.location.href == "http://localhost:5500/login.html" ||
-            window.location.href == "http://localhost:5500/" ||
-            window.location.href == "http://localhost:5500/register.html"
-          ) {
-            window.location.href = "http://localhost:5500/user.html";
           }
         }
       });
   }
 };
 
-receiveUser();
+const redirect = () => {
+  console.log("documento cookie: ", document.cookie);
+  if (document.cookie !== null || document.cookie !== undefined) {
+    console.log("cookie detectado");
+    window.location.href = "./user.html";
+    console.log("fui usado");
+  }
+};
+
+// Adding event listeners
+loginButton.addEventListener("click", login);

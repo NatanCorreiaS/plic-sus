@@ -44,9 +44,10 @@
             </li>
           </ul>
           <ul
+            id="nav-login"
             class="navbar-nav ms-auto mb-2 mb-lg-0 justify-content-md-center align-items-md-center"
           >
-            <li class="nav-item">
+            <li class="nav-item login">
               <a
                 href="./login.html"
                 class="text-white text-decoration-none nav-link"
@@ -55,7 +56,7 @@
             </li>
             <!-- BLOCO DE REGISTRE-SE -->
             <!-- Exibir o elemento quando a tela for pequena and eliminar quando for media ou maior -->
-            <li class="nav-item d-none d-sm-block">
+            <li class="nav-item d-none d-sm-block register">
               <a
                 href="#"
                 class="nav-link text-primary text-decoration-none px-md-3 py-md-1 bg-white rounded-4"
@@ -63,13 +64,14 @@
               >
             </li>
             <!-- Para eliminar o elemento quando a tela for pequena -->
-            <li class="nav-item d-sm-none">
+            <li class="nav-item d-sm-none register">
               <a
                 href="#"
                 class="d-sm-none nav-link text-white text-decoration-none"
                 >Registre-se</a
               >
             </li>
+            <li id="username" class="nav-item text-white lead"></li>
           </ul>
         </div>
       </div>
@@ -83,5 +85,18 @@
         Informação, UNEX-ITABUNA.
       </h5>
     </footer>
+    <script src="./js/auth.js"></script>
+    <script>
+      if (getCookieValue("Username")) {
+        const user = getCookieValue("Username");
+        const navLogin = document.querySelector("#nav-login");
+        const registers = document.querySelectorAll(".register");
+        const logins = document.querySelectorAll(".login");
+        console.log(user);
+        document.querySelector("#username").innerText = "Bem-vindo, " + user;
+        navLogin.removeChild(registers[0]);
+        navLogin.removeChild(logins[0]);
+      }
+    </script>
   </body>
 </html>
