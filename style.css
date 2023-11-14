@@ -1,7 +1,5 @@
-nav{
-    background-color: #5271FF;
-}
-div{
+
+.rodape{
     display: flex;
    text-align: center;
     justify-content: center;
