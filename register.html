@@ -6,7 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login - AgendaAI</title>
+    <title>Registre-se - AgendaAI</title>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -17,12 +17,12 @@
   </head>
   <body>
     <nav
-      class="navbar navbar-expand-lg navbar bg-primary mb-5"
+      class="navbar navbar-expand-lg navbar bg-primary mb-3"
       data-bs-theme="bg-Light"
     >
       <div class="container-fluid">
         <a
-          class="navbar-brand text-primary text-decoration-none px-3 py-1 bg-white rounded-4"
+          class="navbar-brand text-primary text-decoration-none px-3 bg-white rounded-4"
           href="./index.html"
           >AgendaAI</a
         >
@@ -93,14 +93,14 @@
       </div>
     </nav>
     <!-- Main -->
-    <main class="container-fluid align-items-center mb-4">
+    <main class="container-fluid align-items-center">
       <section
-        id="login"
-        class="container text-dark p-2 py-5 border-2 rounded-2 shadow-lg align-items-center h-100"
+        id="register"
+        class="container text-dark p-2 py-3 border-2 rounded-2 shadow-lg align-items-center h-100"
       >
         <div class="row justify-content-center">
           <div class="col-lg-6">
-            <h2 class="text-center mb-5 mt-3">Login</h2>
+            <h2 class="text-center mb-lg-5 mb-2 mt-3">Registro</h2>
             <form method="post" onsubmit="redirect()">
               <div id="output-response">
                 <!-- <div class="alert alert-success" role="alert">
@@ -111,10 +111,19 @@
                 <label class="form-label" for="email">Email</label>
                 <input
                   type="email"
+                  name="email"
                   id="email"
                   class="form-control"
-                  name="email"
-                  placeholder="nome@email.com"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="username">Nome de Usuário</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Digite seu nome de usuário completo"
                 />
               </div>
               <div class="mb-3">
@@ -124,34 +133,38 @@
                   name="password"
                   id="password"
                   class="form-control"
+                  placeholder="Digite a sua senha"
+                  min="8"
+                  max="20"
+                  title="A senha deve conter entre 8 e 20 caracteres"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="check-password" class="form-label"
+                  >Repita a Senha</label
+                >
+                <input
+                  type="password"
+                  name="check-password"
+                  id="check-password"
+                  class="form-control"
                   placeholder="Digite a sua senha novamente"
                   min="8"
                   max="20"
                   title="A senha deve conter entre 8 e 20 caracteres"
                 />
               </div>
-              <div class="mb-5 text-center">
-                <button
-                  id="login-button"
-                  class="btn btn-primary w-50"
-                  type="button"
-                >
-                  Logar
+              <div id="register-button" class="mb-2 text-center">
+                <button class="btn btn-success w-50" type="button">
+                  Registrar
                 </button>
-              </div>
-              <div id="no-account" class="mb-3">
-                <p class="text-center">
-                  Não possui uma conta?
-                  <a class="ms-3 btn btn-success" href="./register.html"
-                    >Registre-se</a
-                  >
-                </p>
               </div>
             </form>
           </div>
         </div>
       </section>
     </main>
+
     <footer
       class="container-fluid text-white text-center bg-primary p-1 position-absolute bottom-0"
     >
@@ -160,12 +173,14 @@
         Informação, UNEX-ITABUNA.
       </h5>
     </footer>
-    <!-- <script src="./js/cpfFormatting.js"></script> -->
+    <script src="./js/cpfFormatting.js"></script>
     <script src="./js/auth.js"></script>
     <script>
       if (getCookieValue("Username")) {
         window.location.href = "./user.html";
       }
     </script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/cpfFormatting.js"></script>
   </body>
 </html>

@@ -16,69 +16,114 @@
     />
   </head>
   <body>
-    <nav class="navbar navbar-expand-md mb-lg-5 mb-5">
+    <nav
+      class="navbar navbar-expand-lg navbar bg-primary mb-md-5 mb-3"
+      data-bs-theme="bg-Light"
+    >
       <div class="container-fluid">
         <a
+          class="navbar-brand text-primary text-decoration-none px-3 py-1 bg-white rounded-4"
           href="./index.html"
-          class="text-decoration-none navbar-brand text-white"
+          >AgendaAI</a
         >
-          Agenda
-          <span
-            class="text-primary text-decoration-none px-3 py-1 bg-white rounded-4"
-            >AI</span
-          >
-        </a>
         <button
           class="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#nav-collapse"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
           aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="nav-collapse">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a href="./about.html" class="nav-link text-white">Sobre</a>
-            </li>
-          </ul>
-          <ul
-            id="nav-login"
-            class="navbar-nav ms-auto mb-2 mb-lg-0 justify-content-md-center align-items-md-center"
-          >
-            <li class="nav-item login">
-              <a
-                href="./login.html"
-                class="text-white text-decoration-none nav-link"
+        <div
+          class="offcanvas offcanvas-end"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header bg-primary">
+            <a href="./index.html" class="text-decoration-none">
+              <h5
+                class="offcanvas-title text-primary px-3 py-1 bg-white rounded-4"
+                id="offcanvasNavbarLabel "
+              >
+                AgendaAI
+              </h5>
+            </a>
+            <button
+              type="button"
+              class="btn-close shadow-none border-0"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body bg-primary">
+            <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+              <li class="nav-item mx-2">
+                <a class="nav-link text-white" href="./clinics.html"
+                  ><i
+                    class="fa-solid fa-hand-holding-medical mx-1"
+                    style="color: #ffffff"
+                  ></i
+                  >Clinicas</a
+                >
+              </li>
+              <li class="nav-item mx-2">
+                <a class="nav-link text-white" href="./about.html"
+                  ><i class="fa-solid fa-circle-info mx-1"></i>Sobre</a
+                >
+              </li>
+            </ul>
+
+            <!-- LOGIN -->
+            <div class="d-flex justify-content-center align-items-center gap-3">
+              <a href="./login.html" class="text-white text-decoration-none"
+                ><i class="fa-solid fa-user mx-1" style="color: #ffffff"></i
                 >Login</a
               >
-            </li>
-            <!-- BLOCO DE REGISTRE-SE -->
-            <!-- Exibir o elemento quando a tela for pequena and eliminar quando for media ou maior -->
-            <li class="nav-item d-none d-sm-block register">
               <a
-                href="#"
-                class="nav-link text-primary text-decoration-none px-md-3 py-md-1 bg-white rounded-4"
+                href="./register.html"
+                class="text-primary text-decoration-none px-3 py-1 bg-white rounded-4"
                 >Registre-se</a
               >
-            </li>
-            <!-- Para eliminar o elemento quando a tela for pequena -->
-            <li class="nav-item d-sm-none register">
-              <a
-                href="#"
-                class="d-sm-none nav-link text-white text-decoration-none"
-                >Registre-se</a
-              >
-            </li>
-            <li id="username" class="nav-item text-white lead"></li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
-    <main class="container-fluid align-items-center mb-4"></main>
+    <main class="container-fluid align-items-center mt-lg-5 mt-3 mb-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 justify-content-center align-items-center">
+          <h2 class="text-primary text-center mb-2">Sobre</h2>
+          <p class="text-center lead mb-3">
+            O AgendaAÍ é um sistema de agendamento de consultas médicas
+            desenvolvido pelos estudantes do curso de Sistemas de Informação da
+            UNEX-ITABUNA. Os seguintes alunos foram os desenvolvedores desse
+            site:
+          </p>
+
+          <ul class="text-center list-unstyled">
+            <li class="fs-5 text-dark-emphasis">
+              Beatriz Adrian Lima, Front-end(Home, clínicas, nav).
+            </li>
+          </ul>
+          <ul class="text-center list-unstyled">
+            <li class="fs-5 text-dark-emphasis">
+              Jhon Luiz Souza Santos, Front-end(About, clínicas, nav).
+            </li>
+          </ul>
+          <ul class="text-center list-unstyled">
+            <li class="fs-5 text-dark-emphasis">
+              Natan Correia da Silva, Front-end(Login, Registro, página de
+              usuário), back-end e banco de dados.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
     <footer
-      class="container-fluid text-white text-center p-2 position-absolute bottom-0"
+      class="container-fluid text-white text-center bg-primary p-1 position-absolute bottom-0"
     >
       <h5 class="fs-6">
         Um projeto desenvolvido pelos estudantes do curso de Sistemas de
