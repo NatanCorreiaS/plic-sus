@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
@@ -77,16 +84,29 @@
             </ul>
 
             <!-- LOGIN -->
-            <div class="d-flex justify-content-center align-items-center gap-3">
-              <a href="./login.html" class="text-white text-decoration-none"
+            <div
+              id="
+            nav-login"
+              class="d-flex justify-content-center align-items-center gap-3"
+            >
+              <a
+                id="login"
+                href="./login.html"
+                class="text-white text-decoration-none"
                 ><i class="fa-solid fa-user mx-1" style="color: #ffffff"></i
                 >Login</a
               >
               <a
+                id="register"
                 href="./register.html"
                 class="text-primary text-decoration-none px-3 py-1 bg-white rounded-4"
                 >Registre-se</a
               >
+              <a
+                href="#"
+                class="text-white text-decoration-none"
+                id="username"
+              ></a>
             </div>
           </div>
         </div>
@@ -123,7 +143,7 @@
       </div>
     </main>
     <footer
-      class="container-fluid text-white text-center bg-primary p-1 position-absolute bottom-0"
+      class="container-fluid text-white text-center bg-primary p-1 fixed-bottom"
     >
       <h5 class="fs-6">
         Um projeto desenvolvido pelos estudantes do curso de Sistemas de
@@ -135,12 +155,15 @@
       if (getCookieValue("Username")) {
         const user = getCookieValue("Username");
         const navLogin = document.querySelector("#nav-login");
-        const registers = document.querySelectorAll(".register");
-        const logins = document.querySelectorAll(".login");
+        const registers = document.querySelectorAll("#register");
+        const logins = document.querySelectorAll("#login");
         console.log(user);
-        document.querySelector("#username").innerText = "Bem-vindo, " + user;
-        navLogin.removeChild(registers[0]);
-        navLogin.removeChild(logins[0]);
+        document.querySelector("#username").innerText =
+          "Bem-vindo, " + user + "!";
+        registers.forEach((d) => d.remove());
+        logins.forEach((d) => d.remove());
+        navLogin.removeChild(registers);
+        navLogin.removeChild(logins);
       }
     </script>
   </body>

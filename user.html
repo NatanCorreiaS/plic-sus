@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
@@ -16,44 +23,98 @@
     />
   </head>
   <body>
-    <nav class="navbar navbar-expand-md mb-lg-5 mb-5">
+    <nav
+      class="navbar navbar-expand-lg navbar bg-primary mb-md-5 mb-3"
+      data-bs-theme="bg-Light"
+    >
       <div class="container-fluid">
         <a
+          class="navbar-brand text-primary text-decoration-none px-3 py-1 bg-white rounded-4"
           href="./index.html"
-          class="text-decoration-none navbar-brand text-white"
+          >AgendaAI</a
         >
-          Agenda
-          <span
-            class="text-primary text-decoration-none px-3 py-1 bg-white rounded-4"
-            >AI</span
-          >
-        </a>
         <button
           class="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#nav-collapse"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
           aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="nav-collapse">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a href="./about.html" class="nav-link text-white">Sobre</a>
-            </li>
-          </ul>
-          <ul
-            class="navbar-nav ms-auto mb-2 mb-lg-0 justify-content-md-center align-items-md-center"
-          >
-            <li id="username" class="nav-item text-white lead"></li>
-          </ul>
+        <div
+          class="offcanvas offcanvas-end"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header bg-primary">
+            <a href="./index.html" class="text-decoration-none">
+              <h5
+                class="offcanvas-title text-primary px-3 py-1 bg-white rounded-4"
+                id="offcanvasNavbarLabel "
+              >
+                AgendaAI
+              </h5>
+            </a>
+            <button
+              type="button"
+              class="btn-close shadow-none border-0"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body bg-primary">
+            <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+              <li class="nav-item mx-2">
+                <a class="nav-link text-white" href="./clinics.html"
+                  ><i
+                    class="fa-solid fa-hand-holding-medical mx-1"
+                    style="color: #ffffff"
+                  ></i
+                  >Clinicas</a
+                >
+              </li>
+              <li class="nav-item mx-2">
+                <a class="nav-link text-white" href="./about.html"
+                  ><i class="fa-solid fa-circle-info mx-1"></i>Sobre</a
+                >
+              </li>
+            </ul>
+
+            <!-- LOGIN -->
+            <div
+              id="
+            nav-login"
+              class="d-flex justify-content-center align-items-center gap-3"
+            >
+              <a
+                id="login"
+                href="./login.html"
+                class="text-white text-decoration-none"
+                ><i class="fa-solid fa-user mx-1" style="color: #ffffff"></i
+                >Login</a
+              >
+              <a
+                id="register"
+                href="./register.html"
+                class="text-primary text-decoration-none px-3 py-1 bg-white rounded-4"
+                >Registre-se</a
+              >
+              <a
+                href="#"
+                class="text-white text-decoration-none"
+                id="username"
+              ></a>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
-    <main class="container-fluid align-items-center mb-4"></main>
+    <main class="container-fluid align-items-center mt-lg-5 mt-3 mb-5"></main>
     <footer
-      class="container-fluid text-white text-center p-2 position-absolute bottom-0"
+      class="container-fluid text-white text-center bg-primary p-1 fixed-bottom"
     >
       <h5 class="fs-6">
         Um projeto desenvolvido pelos estudantes do curso de Sistemas de
@@ -62,16 +123,20 @@
     </footer>
     <script src="./js/auth.js"></script>
     <script>
-      // Pegar o valor do cookie
-      const user = getCookieValue("Username");
-      console.log(user);
-      document.querySelector("title").innerText = user + " - AgendaAI";
-      document.querySelector("#username").innerText = "Bem-vindo, " + user;
-    </script>
-    <script>
-      // Verificando se o usuario está logado
-      if (!getCookieValue("Username")) {
-        window.location.href = "./login.html";
+      if (getCookieValue("Username")) {
+        const title = document.querySelector("title");
+        const user = getCookieValue("Username");
+        title.innerText = `${user} - AgendaAI`;
+        const navLogin = document.querySelector("#nav-login");
+        const registers = document.querySelectorAll("#register");
+        const logins = document.querySelectorAll("#login");
+        console.log(user);
+        document.querySelector("#username").innerText =
+          "Bem-vindo, " + user + "!";
+        registers.forEach((d) => d.remove());
+        logins.forEach((d) => d.remove());
+        navLogin.removeChild(registers);
+        navLogin.removeChild(logins);
       }
     </script>
   </body>
