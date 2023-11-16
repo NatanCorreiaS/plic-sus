@@ -37,7 +37,7 @@ const receiveUser = async () => {
     ) {
       return;
     }
-    await fetch("http://localhost:5000/api/session", {
+    await fetch("https://zany-undershirt-deer.cyclic.app/api/session", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -108,7 +108,7 @@ const login = async () => {
     return;
   }
 
-  await fetch("http://localhost:5000/api/login", {
+  await fetch("https://zany-undershirt-deer.cyclic.app/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -185,7 +185,7 @@ const register = async () => {
   }
 
   console.log("Tentando criar usuário");
-  await fetch("http://localhost:5000/api/register", {
+  await fetch("https://zany-undershirt-deer.cyclic.app/api/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
