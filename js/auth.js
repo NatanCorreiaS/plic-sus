@@ -120,6 +120,19 @@ const login = async () => {
   })
     .then((response) => response.json())
     .then((data) => {
+      if (data.message == "User not found") {
+        const outputResponse = document.getElementById("output-response");
+        while (outputResponse.firstChild) {
+          outputResponse.removeChild(outputResponse.firstChild);
+        }
+        // outputResponse.removeChild(outputResponse.firstChild);
+        const negativeResponse = document.createElement("div");
+        negativeResponse.classList.add("alert");
+        negativeResponse.classList.add("alert-danger");
+        negativeResponse.innerHTML = "Usuário não encontrado!";
+        outputResponse.appendChild(negativeResponse);
+        return;
+      }
       document.cookie = "Session:" + data.session;
     });
 
