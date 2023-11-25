@@ -124,6 +124,7 @@
     <script src="./js/auth.js"></script>
     <script>
       //   if (!getCookieValue("Username")) window.location.replace("./login.html");
+      if (getCookieValue("Username")) window.location.replace("./user.html");
       if (getCookieValue("Username")) {
         const title = document.querySelector("title");
         const user = getCookieValue("Username");

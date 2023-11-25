@@ -112,7 +112,89 @@
         </div>
       </div>
     </nav>
-    <main class="container-fluid align-items-center mt-lg-5 mt-3 mb-5"></main>
+    <main class="container-fluid align-items-center mt-lg-5 mt-3 mb-5">
+      <div id="appointments" class="row justify-content-center">
+        <div class="col-lg-10 col border rounded-2 p-5 shadow-lg mb-4">
+          <h3 class="lead fs-3">Consultas Marcadas</h3>
+          <p class="lead">Nenhuma consulta marcada.</p>
+        </div>
+      </div>
+      <div id="appointment-consults" class="row justify-content-center">
+        <div class="col-lg-10 col border rounded-2 p-5 shadow-lg mb-4">
+          <h2 class="lead fs-3 mb-4">Agendar Consultas</h2>
+          <div id="output-response"></div>
+          <form>
+            <div class="input-group mb-5 d-none d-md-flex">
+              <select class="form-select" aria-label="Default Clinic">
+                <option selected>Escolha uma clínica</option>
+                <option value="AmorSaúde">AmorSaúde</option>
+                <option value="AssisteMed">AssisteMed</option>
+                <option value="Dr.Consulta">Dr.Consulta</option>
+              </select>
+              <span class="input-group-text">/</span>
+              <select class="form-select" aria-label="Default Consult Type">
+                <option selected>Tipo de Consulta</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+              <span class="input-group-text">/</span>
+              <input class="form-control" type="date" name="date" id="date" />
+              <span class="input-group-text">/</span>
+              <select class="form-select" aria-label="Default Hour">
+                <option selected>Escolha um Horário</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <!-- Mobile variant -->
+            <select
+              class="form-select d-md-none mb-2"
+              aria-label="Default Clinic"
+            >
+              <option selected>Escolha uma clínica</option>
+              <option value="AmorSaúde">AmorSaúde</option>
+              <option value="AssisteMed">AssisteMed</option>
+              <option value="Dr.Consulta">Dr.Consulta</option>
+            </select>
+            <select
+              class="form-select d-md-none mb-2"
+              aria-label="Default Consult Type"
+            >
+              <option selected>Tipo de Consulta</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+            <input
+              class="form-control d-md-none mb-2"
+              type="date"
+              name="date"
+              id="date-mobile"
+            />
+            <select
+              class="form-select d-md-none mb-2"
+              aria-label="Default Hour"
+            >
+              <option selected>Escolha um Horário</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+            <div class="container w-100 text-center">
+              <button class="btn btn-success text-center w-50">Agendar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col col-lg-10 border rounded-2 p-5 shadow-lg mb-5">
+          <h3 class="lead fs-3">Consultas Passadas</h3>
+          <p class="lead">Nenhuma consulta no histórico.</p>
+        </div>
+      </div>
+    </main>
     <footer
       class="container-fluid text-white text-center bg-primary p-1 fixed-bottom"
     >
@@ -140,5 +222,6 @@
         navLogin.removeChild(logins);
       }
     </script>
+    <script src="./js/formatter.js"></script>
   </body>
 </html>

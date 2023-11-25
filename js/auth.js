@@ -4,6 +4,7 @@ const email = document.getElementById("email");
 const username = document.getElementById("username");
 const loginButton = document.getElementById("login-button");
 const registerButton = document.getElementById("register-button");
+const URL = "http://localhost:5000/api";
 
 const getCookieValue = (cookieName) => {
   // Exemplo do valor do cookie
@@ -37,7 +38,7 @@ const receiveUser = async () => {
     ) {
       return;
     }
-    await fetch("https://zany-undershirt-deer.cyclic.app/api/session", {
+    await fetch(`${URL}/session`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -108,7 +109,7 @@ const login = async () => {
     return;
   }
 
-  await fetch("https://zany-undershirt-deer.cyclic.app/api/login", {
+  await fetch(`${URL}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -198,7 +199,7 @@ const register = async () => {
   }
 
   console.log("Tentando criar usuário");
-  await fetch("https://zany-undershirt-deer.cyclic.app/api/register", {
+  await fetch(`${URL}/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
