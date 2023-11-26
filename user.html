@@ -146,11 +146,17 @@
               <span class="input-group-text">/</span>
               <input class="form-control" type="date" name="date" id="date" />
               <span class="input-group-text">/</span>
-              <select class="form-select" aria-label="Default Hour">
+              <select id="hour" class="form-select" aria-label="Default Hour">
                 <option selected>Escolha um Horário</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="8:00">8:00</option>
+                <option value="8:30">8:30</option>
+                <option value="9:00">9:00</option>
+                <option value="9:30">9:30</option>
+                <option value="10:00">10:00</option>
+                <option value="10:30">10:30</option>
+                <option value="11:00">11:00</option>
+                <option value="11:30">11:30</option>
+                <option value="12:00">12:00</option>
               </select>
             </div>
             <!-- Mobile variant -->
@@ -181,16 +187,28 @@
               id="date-mobile"
             />
             <select
+              id="hour-mobile"
               class="form-select d-md-none mb-2"
               aria-label="Default Hour"
             >
               <option selected>Escolha um Horário</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <option value="8:00">8:00</option>
+              <option value="8:30">8:30</option>
+              <option value="9:00">9:00</option>
+              <option value="9:30">9:30</option>
+              <option value="10:00">10:00</option>
+              <option value="10:30">10:30</option>
+              <option value="11:00">11:00</option>
+              <option value="11:30">11:30</option>
+              <option value="12:00">12:00</option>
             </select>
             <div class="container w-100 text-center">
-              <button class="btn btn-success text-center w-50">Agendar</button>
+              <button
+                id="appointment-btn"
+                class="btn btn-success text-center w-50"
+              >
+                Agendar
+              </button>
             </div>
           </form>
         </div>
