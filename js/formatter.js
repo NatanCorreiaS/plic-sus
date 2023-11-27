@@ -512,7 +512,10 @@ const createPastApppointments = () => {
       const month = new Date(appointment.date).getMonth() + 1;
       const year = new Date(appointment.date).getFullYear();
       const hour = new Date(appointment.date).getUTCHours();
-      let minutes = new Date(appointment.date).getUTCMinutes();
+      const minutes = new Date(appointment.date).getUTCMinutes();
+      if (minutes === 0) {
+        minutes = "00";
+      }
       appointmentCard.innerText = `Clínica: ${appointment.clinic} | Tipo de Consulta: ${appointment.consultationType} | Data: ${date}/${month}/${year} | Horário: ${hour}:${minutes}h`;
       pastAppointmentsTag.appendChild(appointmentCard);
     });
@@ -520,9 +523,6 @@ const createPastApppointments = () => {
     const appointmentCard = document.createElement("div");
     appointmentCard.classList.add("alert");
     appointmentCard.classList.add("alert-danger");
-    if (minutes === 0) {
-      minutes = "00";
-    }
     appointmentCard.innerText = "Você não possui consultas passadas!";
     pastAppointmentsTag.appendChild(appointmentCard);
   }
