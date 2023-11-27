@@ -66,7 +66,10 @@
             ></button>
           </div>
           <div class="offcanvas-body bg-primary">
-            <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+            <ul
+              id="offcanvas-nav"
+              class="navbar-nav justify-content-center flex-grow-1 pe-3"
+            >
               <li class="nav-item mx-2">
                 <a class="nav-link text-white" href="./clinics.html"
                   ><i
@@ -116,7 +119,8 @@
       <div id="appointments" class="row justify-content-center">
         <div class="col-lg-10 col border rounded-2 p-5 shadow-lg mb-4">
           <h3 class="lead fs-3">Consultas Marcadas</h3>
-          <p class="lead">Nenhuma consulta marcada.</p>
+          <div id="appointments-container"></div>
+          <!-- <p class="lead">Nenhuma consulta marcada.</p> -->
         </div>
       </div>
       <div id="appointment-consults" class="row justify-content-center">
@@ -148,10 +152,10 @@
               <span class="input-group-text">/</span>
               <select id="hour" class="form-select" aria-label="Default Hour">
                 <option selected>Escolha um Horário</option>
-                <option value="8:00">8:00</option>
-                <option value="8:30">8:30</option>
-                <option value="9:00">9:00</option>
-                <option value="9:30">9:30</option>
+                <option value="08:00">08:00</option>
+                <option value="08:30">08:30</option>
+                <option value="09:00">09:00</option>
+                <option value="09:30">09:30</option>
                 <option value="10:00">10:00</option>
                 <option value="10:30">10:30</option>
                 <option value="11:00">11:00</option>
@@ -192,10 +196,10 @@
               aria-label="Default Hour"
             >
               <option selected>Escolha um Horário</option>
-              <option value="8:00">8:00</option>
-              <option value="8:30">8:30</option>
-              <option value="9:00">9:00</option>
-              <option value="9:30">9:30</option>
+              <option value="08:00">08:00</option>
+              <option value="08:30">08:30</option>
+              <option value="09:00">09:00</option>
+              <option value="09:30">09:30</option>
               <option value="10:00">10:00</option>
               <option value="10:30">10:30</option>
               <option value="11:00">11:00</option>
@@ -216,7 +220,8 @@
       <div class="row justify-content-center">
         <div class="col col-lg-10 border rounded-2 p-5 shadow-lg mb-5">
           <h3 class="lead fs-3">Consultas Passadas</h3>
-          <p class="lead">Nenhuma consulta no histórico.</p>
+          <div id="past-appointments"></div>
+          <!-- <p class="lead">Nenhuma consulta no histórico.</p> -->
         </div>
       </div>
     </main>
@@ -248,5 +253,34 @@
       }
     </script>
     <script src="./js/formatter.js"></script>
+    <script>
+      const offcanvasNav = document.querySelector("#offcanvas-nav");
+      const liNav = document.createElement("li");
+      liNav.classList.add("nav-item");
+      liNav.classList.add("mx-2");
+
+      const aNav = document.createElement("a");
+      aNav.classList.add("nav-link");
+      aNav.classList.add("text-white");
+      aNav.style.cursor = "pointer";
+
+      const iNav = document.createElement("i");
+      iNav.classList.add("fa-solid");
+      iNav.classList.add("fa-right-from-bracket");
+      iNav.classList.add("mx-1");
+
+      aNav.appendChild(iNav);
+      aNav.appendChild(document.createTextNode("Logout"));
+
+      aNav.addEventListener("click", () => {
+        document.cookie = null;
+        window.location.href = "./index.html";
+      });
+
+      liNav.appendChild(aNav);
+      if (getCookieValue("Username")) {
+        offcanvasNav.appendChild(liNav);
+      }
+    </script>
   </body>
 </html>

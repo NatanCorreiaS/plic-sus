@@ -4,7 +4,7 @@ const email = document.getElementById("email");
 const username = document.getElementById("username");
 const loginButton = document.getElementById("login-button");
 const registerButton = document.getElementById("register-button");
-const URL = "http://localhost:5000/api";
+const URL = "https://zany-undershirt-deer.cyclic.app/api";
 
 const getCookieValue = (cookieName) => {
   // Exemplo do valor do cookie

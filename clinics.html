@@ -66,7 +66,7 @@
             ></button>
           </div>
           <div class="offcanvas-body bg-primary">
-            <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+            <ul id="offcanvas-nav" class="navbar-nav justify-content-center flex-grow-1 pe-3">
               <li class="nav-item mx-2">
                 <a class="nav-link text-white" href="./clinics.html"
                   ><i
@@ -180,7 +180,7 @@
                                     <div class="modal-body">
                                         <p>DR. Maria Elena, Cardiologista;<hr>DR. Paulo Victor, Neurologista;<hr>
                                             Dr. Rafael Lima, Ortopedista;<hr>Dra. Juliana Costa, Ginecologista;<hr>Dra.Larissa Victória, Dentista (Odontologista).
-                                        </p>
+                                        </p> 
                                     </div>
                                 </div>
                             </div>
@@ -260,6 +260,35 @@
         logins.forEach((d) => d.remove());
         navLogin.removeChild(registers);
         navLogin.removeChild(logins);
+      }
+    </script>
+    <script>
+      const offcanvasNav = document.querySelector("#offcanvas-nav");
+      const liNav = document.createElement("li");
+      liNav.classList.add("nav-item");
+      liNav.classList.add("mx-2");
+
+      const aNav = document.createElement("a");
+      aNav.classList.add("nav-link");
+      aNav.classList.add("text-white");
+      aNav.style.cursor = "pointer";
+
+      const iNav = document.createElement("i");
+      iNav.classList.add("fa-solid");
+      iNav.classList.add("fa-right-from-bracket");
+      iNav.classList.add("mx-1");
+
+      aNav.appendChild(iNav);
+      aNav.appendChild(document.createTextNode("Logout"));
+
+      aNav.addEventListener("click", () => {
+        document.cookie = null;
+        window.location.href = "./index.html";
+      });
+
+      liNav.appendChild(aNav);
+      if (getCookieValue("Username")) {
+        offcanvasNav.appendChild(liNav);
       }
     </script>
   </body>

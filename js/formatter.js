@@ -10,8 +10,14 @@ const hourMobile = document.getElementById("hour-mobile");
 const appointmentBtn = document.getElementById("appointment-btn");
 
 // Fetch variables
-const URL_USER = "http://localhost:5000/api";
+const URL_USER = "https://zany-undershirt-deer.cyclic.app/api";
 let id;
+
+// Appointments
+let appointments = [];
+let PastAppointments = [];
+const appointmentsTag = document.getElementById("appointments-container");
+const pastAppointmentsTag = document.getElementById("past-appointments");
 
 const checkingDesktop = () => {
   if (
@@ -27,6 +33,63 @@ const checkingDesktop = () => {
     for (let i = 0; i < hour.children.length; i++) {
       hour.children[i].disabled = false;
     }
+  }
+};
+
+const checkingMobile = () => {
+  if (
+    clinicMobile.value === "Escolha uma clínica" ||
+    dateMobile.value === "" ||
+    consultTypeMobile.value === "Tipo de Consulta"
+  ) {
+    for (let i = 0; i < hourMobile.children.length; i++) {
+      hourMobile.children[i].disabled = true;
+    }
+  } else {
+    for (let i = 0; i < hourMobile.children.length; i++) {
+      hourMobile.children[i].disabled = false;
+    }
+  }
+};
+
+const checkingHourMobile = async () => {
+  checkingMobile();
+  if (hourMobile.value !== "Escolha um horário" && dateMobile.value !== "") {
+    await fetch(`${URL_USER}/appointment/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let isUnavailable = false; // Adiciona uma variável para rastrear se o horário está indisponível
+        data.forEach((appointment) => {
+          if (
+            appointment.clinic === clinicMobile.value &&
+            appointment.consultationType === consultTypeMobile.value &&
+            appointment.date ===
+              `${dateMobile.value}T${hourMobile.value}:00.000Z`
+          ) {
+            isUnavailable = true; // Define como verdadeiro se o horário estiver indisponível
+            while (outputResponse.firstChild) {
+              outputResponse.removeChild(outputResponse.firstChild);
+            }
+            const negativeResponse = document.createElement("div");
+            negativeResponse.classList.add("alert");
+            negativeResponse.classList.add("alert-danger");
+            negativeResponse.innerHTML = "Horário indisponível!";
+            outputResponse.appendChild(negativeResponse);
+            hourMobile.value = "";
+            console.log("Horário indisponível");
+          }
+        });
+
+        // Se o horário estiver disponível, remova o alerta
+        if (!isUnavailable && outputResponse.firstChild) {
+          outputResponse.removeChild(outputResponse.firstChild);
+        }
+      });
   }
 };
 
@@ -114,6 +177,7 @@ clinic.addEventListener("change", function () {
 // });
 
 clinicMobile.addEventListener("change", function () {
+  checkingMobile();
   if (clinicMobile.value === "AmorSaúde") {
     while (consultTypeMobile.firstChild) {
       consultTypeMobile.removeChild(consultTypeMobile.firstChild);
@@ -157,6 +221,10 @@ clinicMobile.addEventListener("change", function () {
   }
 });
 
+consultTypeMobile.addEventListener("change", function () {
+  checkingMobile();
+});
+
 // Date validation from desktop
 dateInput.addEventListener("change", function () {
   checkingDesktop();
@@ -183,6 +251,7 @@ dateInput.addEventListener("change", function () {
 
 // Date validation from mobile
 dateMobile.addEventListener("change", function () {
+  checkingMobile();
   const day = new Date(dateMobile.value).getDay();
 
   if (day === 0 || day === 6) {
@@ -211,8 +280,13 @@ hour.addEventListener("change", async () => {
   checkingHour();
 });
 
-checkingDesktop();
+hourMobile.addEventListener("change", async () => {
+  checkingMobile();
+  checkingHourMobile();
+});
 
+checkingDesktop();
+checkingMobile();
 const getCookieValueB = (cookieName) => {
   // Exemplo do valor do cookie
   const cookieValue = document.cookie;
@@ -238,7 +312,7 @@ const getCookieValueB = (cookieName) => {
 
 let userId;
 // fetching user id
-const getEmail = async () => {
+const getIdAndFetchAppointments = async () => {
   const email = getCookieValueB("Email");
   await fetch(`${URL_USER}/user/getid`, {
     method: "POST",
@@ -252,11 +326,57 @@ const getEmail = async () => {
     .then((response) => response.json())
     .then((data) => {
       userId = data.id;
-      console.log(userId);
+      // console.log(userId);
+    })
+    .then(() => {
+      fetchUserAppointments();
     });
 };
 
+const sendAppointmentMobile = () => {
+  console.log(`${dateMobile.value}T${hourMobile.value}:00.000Z`);
+  fetch(`${URL_USER}/appointment/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      clinic: clinicMobile.value,
+      consultationType: consultTypeMobile.value,
+      date: `${dateMobile.value}T${hourMobile.value}:00.000Z`,
+      userId,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      if (data.message === "Erro interno do servidor.") {
+        // console.log(erro);
+        while (outputResponse.firstChild) {
+          outputResponse.removeChild(outputResponse.firstChild);
+        }
+        const negativeResponse = document.createElement("div");
+        negativeResponse.classList.add("alert");
+        negativeResponse.classList.add("alert-danger");
+        negativeResponse.innerHTML =
+          "Erro interno do servidor, verifique se a data e horário estão disponíveis!";
+        outputResponse.appendChild(negativeResponse);
+      } else {
+        while (outputResponse.firstChild) {
+          outputResponse.removeChild(outputResponse.firstChild);
+        }
+        const positiveResponse = document.createElement("div");
+        positiveResponse.classList.add("alert");
+        positiveResponse.classList.add("alert-success");
+        positiveResponse.innerHTML = "Consulta agendada com sucesso!";
+        outputResponse.appendChild(positiveResponse);
+      }
+    });
+};
+
+// 2023-11-26T08:00:00.000Z
 const sendAppointment = () => {
+  console.log(`${dateInput.value}T${hour.value}:00.000Z`);
   fetch(`${URL_USER}/appointment/`, {
     method: "POST",
     headers: {
@@ -270,13 +390,172 @@ const sendAppointment = () => {
     }),
   })
     .then((response) => response.json())
-    .then((data) => console.log(data));
+    .then((data) => {
+      console.log(data);
+      if (data.message === "Erro interno do servidor.") {
+        // console.log(erro);
+        while (outputResponse.firstChild) {
+          outputResponse.removeChild(outputResponse.firstChild);
+        }
+        const negativeResponse = document.createElement("div");
+        negativeResponse.classList.add("alert");
+        negativeResponse.classList.add("alert-danger");
+        negativeResponse.innerHTML =
+          "Erro interno do servidor, verifique se a data e horário estão disponíveis!";
+        outputResponse.appendChild(negativeResponse);
+      } else {
+        while (outputResponse.firstChild) {
+          outputResponse.removeChild(outputResponse.firstChild);
+        }
+        const positiveResponse = document.createElement("div");
+        positiveResponse.classList.add("alert");
+        positiveResponse.classList.add("alert-success");
+        positiveResponse.innerHTML = "Consulta agendada com sucesso!";
+        outputResponse.appendChild(positiveResponse);
+      }
+    });
 };
 
-getEmail();
-console.log(userId);
+getIdAndFetchAppointments();
+// console.log(userId);
+
+// Utility functions for date
+function padZero(numero) {
+  return numero < 10 ? "0" + numero : numero;
+}
+
+function padZeros(numero, quantidade) {
+  let string = numero.toString();
+  while (string.length < quantidade) {
+    string = "0" + string;
+  }
+  return string;
+}
+
+// Fetching appointments function
+const fetchUserAppointments = () => {
+  fetch(`${URL_USER}/appointment/user`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId: userId,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Obtendo a data atual
+      const actualDate = new Date();
+
+      // Formatando a data atual no formato "YYYY-MM-DDTHH:mm:ss.sssZ"
+      const year = actualDate.getUTCFullYear();
+      const month = padZero(actualDate.getUTCMonth() + 1); // Meses são base 0, então é necessário adicionar 1
+      const day = padZero(actualDate.getUTCDate());
+      const hour = padZero(actualDate.getUTCHours() - 3);
+      const minutes = padZero(actualDate.getUTCMinutes());
+      const seconds = padZero(actualDate.getUTCSeconds());
+      const miliseconds = padZeros(actualDate.getUTCMilliseconds(), 3);
+
+      const formatedDate = `${year}-${month}-${day}T${hour}:${minutes}:${seconds}.${miliseconds}Z`;
+      const date = new Date(formatedDate);
+      data.forEach((appointment) => {
+        if (new Date(appointment.date) < date) {
+          PastAppointments.push(appointment);
+        } else {
+          appointments.push(appointment);
+        }
+      });
+    })
+    .then(() => {
+      createAppointments();
+      createPastApppointments();
+    });
+};
+
+// Creating appointments cards
+const createAppointments = () => {
+  if (appointments.length > 0) {
+    appointments.forEach((appointment) => {
+      const appointmentCard = document.createElement("div");
+      appointmentCard.classList.add("alert");
+      appointmentCard.classList.add("alert-primary");
+      const date = new Date(appointment.date).getDate();
+      const month = new Date(appointment.date).getMonth() + 1;
+      const year = new Date(appointment.date).getFullYear();
+      const hour = new Date(appointment.date).getUTCHours();
+      let minutes = new Date(appointment.date).getUTCMinutes();
+      if (minutes === 0) {
+        minutes = "00";
+      }
+      // console.log(hour, minutes);
+      appointmentCard.innerText = `Clínica: ${appointment.clinic} | Tipo de Consulta: ${appointment.consultationType} | Data: ${date}/${month}/${year} | Horário: ${hour}:${minutes}h`;
+      appointmentsTag.appendChild(appointmentCard);
+    });
+  } else {
+    const appointmentCard = document.createElement("div");
+    appointmentCard.classList.add("alert");
+    appointmentCard.classList.add("alert-primary");
+    appointmentCard.innerText = "Você não possui consultas agendadas!";
+    appointmentsTag.appendChild(appointmentCard);
+  }
+};
+
+// Creating past appointments cards
+const createPastApppointments = () => {
+  if (PastAppointments.length > 0) {
+    PastAppointments.forEach((appointment) => {
+      const appointmentCard = document.createElement("div");
+      appointmentCard.classList.add("alert");
+      appointmentCard.classList.add("alert-danger");
+      const date = new Date(appointment.date).getDate();
+      const month = new Date(appointment.date).getMonth() + 1;
+      const year = new Date(appointment.date).getFullYear();
+      const hour = new Date(appointment.date).getUTCHours();
+      let minutes = new Date(appointment.date).getUTCMinutes();
+      appointmentCard.innerText = `Clínica: ${appointment.clinic} | Tipo de Consulta: ${appointment.consultationType} | Data: ${date}/${month}/${year} | Horário: ${hour}:${minutes}h`;
+      pastAppointmentsTag.appendChild(appointmentCard);
+    });
+  } else {
+    const appointmentCard = document.createElement("div");
+    appointmentCard.classList.add("alert");
+    appointmentCard.classList.add("alert-danger");
+    if (minutes === 0) {
+      minutes = "00";
+    }
+    appointmentCard.innerText = "Você não possui consultas passadas!";
+    pastAppointmentsTag.appendChild(appointmentCard);
+  }
+};
+
+// console.log(appointments);
+// console.log(PastAppointments);
 
 appointmentBtn.addEventListener("click", async () => {
   // window.location.href = "#";
-  await sendAppointment();
+  event.preventDefault();
+  if (
+    clinic.value !== "Escolha uma clínica" &&
+    dateInput.value !== "" &&
+    consultType.value !== "Tipo de Consulta" &&
+    hour.value !== "Escolha um horário"
+  ) {
+    await sendAppointment();
+  } else if (
+    clinicMobile.value !== "Escolha uma clínica" &&
+    dateMobile.value !== "" &&
+    consultTypeMobile.value !== "Tipo de Consulta" &&
+    hourMobile.value !== "Escolha um horário"
+  ) {
+    await sendAppointmentMobile();
+  } else {
+    while (outputResponse.firstChild) {
+      outputResponse.removeChild(outputResponse.firstChild);
+    }
+    const negativeResponse = document.createElement("div");
+    negativeResponse.classList.add("alert");
+    negativeResponse.classList.add("alert-danger");
+    negativeResponse.innerHTML = "Preencha todos os campos!";
+    outputResponse.appendChild(negativeResponse);
+  }
 });
