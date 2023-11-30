@@ -512,7 +512,7 @@ const createPastApppointments = () => {
       const month = new Date(appointment.date).getMonth() + 1;
       const year = new Date(appointment.date).getFullYear();
       const hour = new Date(appointment.date).getUTCHours();
-      const minutes = new Date(appointment.date).getUTCMinutes();
+      let minutes = new Date(appointment.date).getUTCMinutes();
       if (minutes === 0) {
         minutes = "00";
       }
