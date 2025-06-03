@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cadastro.css">
+    <script src="https://kit.fontawesome.com/547d4aec6d.js" crossorigin="anonymous"></script>
+    <title>Cadastro</title>
+</head>
+
+<body>
+    <header>
+        <nav class="nav">
+            <p>AgendaAI</p>
+            <div class="buttons_nav">  
+                <a href="/medico/login/login.html" class="login_nav"><i class="fa-solid fa-user"></i>Login</a>
+                <a href="/medico/cadastro/cadastro.html" class="register_nav"></i>Registre-se</a>
+            </div>
+
+        </nav>
+    </header>
+    <main>
+        <div class="register-container">
+            <h2>Cadastre-se</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="name">Nome Completo</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="specialty">Especialização</label>
+                    <input type="text" id="specialty" name="specialty" required>
+                </div>
+                <div class="form-group">
+                    <label for="clinic">Clinica</label>
+                    <input type="text" id="clinic" name="clinic" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirmar Senha</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+                <label for="availableDaysHeader">Dias</label>
+                <div>
+                    <input type="checkbox" name="segunda" id="segunda">
+                    <label for="segunda">Segunda</label>
+
+                    <input type="checkbox" name="terca" id="terca">
+                    <label for="terca">Terça</label>
+
+                    <input type="checkbox" name="quarta" id="quarta">
+                    <label for="quarta">Quarta</label>
+
+                    <input type="checkbox" name="quinta" id="quinta">
+                    <label for="quinta">Quinta</label>
+
+                    <input type="checkbox" name="sexta" id="sexta">
+                    <label for="sexta">Sexta</label>
+                </div>
+                <button type="submit" class="register-button">Cadastrar</button>
+            </form>
+            <div class="login-section">
+                <span>Já possui uma conta?</span>
+                <a href="/login/login.html">
+                    <button type="button" class="login-bottom-button">Faça Login</button>
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+
+<script src="cadastro.js"></script>
+
+</html>

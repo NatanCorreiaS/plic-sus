@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css" />
+    <script src="login.js"></script>
+    <script src="https://kit.fontawesome.com/547d4aec6d.js" crossorigin="anonymous"></script>
+    <title>Login</title>
+</head>
+
+<body>
+    <header>
+        <nav class="nav">
+            <p>AgendaAI</p>
+            <div class="buttons_nav">  
+                <a href="/medico/login/login.html" class="login_nav"><i class="fa-solid fa-user"></i>Login</a>
+                <a href="/medico/cadastro/cadastro.html" class="register_nav"></i>Registre-se</a>
+            </div>
+
+        </nav>
+    </header>
+    <main>
+        <div class="login-container">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-button">Logar</button>
+            </form>
+            <div class="register-section">
+                <span>Não possui uma conta?</span>
+                <a href="/cadastro/cadastro.html"><button type="button" class="register-bottom-button">Registre-se</button></a>
+            </div>
+            <div class="mb-3 text-center">
+                <a href="../../login.html" class="btn btn-link">Sou Usuário</a>
+            </div>
+        </div>
+    </main>
+
+
+</body>
+
+</html>
