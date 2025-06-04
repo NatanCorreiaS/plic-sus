@@ -10,7 +10,7 @@ const hourMobile = document.getElementById("hour-mobile");
 const appointmentBtn = document.getElementById("appointment-btn");
 
 // Fetch variables
-const URL_USER = "https://zany-undershirt-deer.cyclic.app/api";
+const URL_USER = "https://publisher-sit-recycling-expo.trycloudflare.com/api";
 let id;
 
 // Appointments

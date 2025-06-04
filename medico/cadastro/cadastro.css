@@ -9,6 +9,8 @@ body {
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f2f5;
+    position: relative;
+    height: 100vh;
 }
 
 .nav {
