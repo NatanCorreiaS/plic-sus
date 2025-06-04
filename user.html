@@ -127,30 +127,21 @@
         <div class="col-lg-10 col border rounded-2 p-5 shadow-lg mb-4">
           <h2 class="lead fs-3 mb-4">Agendar Consultas</h2>
           <div id="output-response"></div>
-          <form>
+          <form id="appointment-form">
             <div class="input-group mb-5 d-none d-md-flex">
               <select
-                id="clinic"
+                id="physician"
                 class="form-select"
-                aria-label="Default Clinic"
+                aria-label="Default Physician"
+                required
               >
-                <option selected>Escolha uma clínica</option>
-                <option value="AmorSaúde">AmorSaúde</option>
-                <option value="AssisteMed">AssisteMed</option>
-                <option value="Dr.Consulta">Dr.Consulta</option>
+                <option selected>Escolha um médico</option>
+                <!-- Opções preenchidas via JS -->
               </select>
               <span class="input-group-text">/</span>
-              <select
-                id="consult-type"
-                class="form-select"
-                aria-label="Default Consult Type"
-              >
-                <option selected>Tipo de Consulta</option>
-              </select>
+              <input class="form-control" type="date" name="date" id="date" required />
               <span class="input-group-text">/</span>
-              <input class="form-control" type="date" name="date" id="date" />
-              <span class="input-group-text">/</span>
-              <select id="hour" class="form-select" aria-label="Default Hour">
+              <select id="hour" class="form-select" aria-label="Default Hour" required>
                 <option selected>Escolha um Horário</option>
                 <option value="08:00">08:00</option>
                 <option value="08:30">08:30</option>
@@ -165,35 +156,26 @@
             </div>
             <!-- Mobile variant -->
             <select
-              id="clinic-mobile"
+              id="physician-mobile"
               class="form-select d-md-none mb-2"
-              aria-label="Default Clinic"
+              aria-label="Default Physician"
+              required
             >
-              <option selected>Escolha uma clínica</option>
-              <option value="AmorSaúde">AmorSaúde</option>
-              <option value="AssisteMed">AssisteMed</option>
-              <option value="Dr.Consulta">Dr.Consulta</option>
-            </select>
-            <select
-              id="consult-type-mobile"
-              class="form-select d-md-none mb-2"
-              aria-label="Default Consult Type"
-            >
-              <option selected>Tipo de Consulta</option>
-              <!-- <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option> -->
+              <option selected>Escolha um médico</option>
+              <!-- Opções preenchidas via JS -->
             </select>
             <input
               class="form-control d-md-none mb-2"
               type="date"
               name="date"
               id="date-mobile"
+              required
             />
             <select
               id="hour-mobile"
               class="form-select d-md-none mb-2"
               aria-label="Default Hour"
+              required
             >
               <option selected>Escolha um Horário</option>
               <option value="08:00">08:00</option>
@@ -210,6 +192,7 @@
               <button
                 id="appointment-btn"
                 class="btn btn-success text-center w-50"
+                type="submit"
               >
                 Agendar
               </button>
