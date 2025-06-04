@@ -120,7 +120,6 @@
         <div class="col-lg-10 col border rounded-2 p-5 shadow-lg mb-4">
           <h3 class="lead fs-3">Consultas Marcadas</h3>
           <div id="appointments-container"></div>
-          <!-- <p class="lead">Nenhuma consulta marcada.</p> -->
         </div>
       </div>
       <div id="appointment-consults" class="row justify-content-center">
@@ -204,64 +203,43 @@
         <div class="col col-lg-10 border rounded-2 p-5 shadow-lg mb-5">
           <h3 class="lead fs-3">Consultas Passadas</h3>
           <div id="past-appointments"></div>
-          <!-- <p class="lead">Nenhuma consulta no histórico.</p> -->
         </div>
       </div>
     </main>
-    <footer
-      class="container-fluid text-white text-center bg-primary p-1 fixed-bottom"
-    >
+    <footer class="container-fluid text-white text-center bg-primary p-1 fixed-bottom">
       <h5 class="fs-6">
-        Um projeto desenvolvido pelos estudantes do curso de Sistemas de
-        Informação, UNEX-ITABUNA.
+        Um projeto desenvolvido pelos estudantes do curso de Sistemas de Informação, UNEX-ITABUNA.
       </h5>
     </footer>
     <script src="./js/auth.js"></script>
+    <script src="./js/formatter.js"></script>
     <script>
       if (!getCookieValue("Username")) window.location.replace("./login.html");
       if (getCookieValue("Username")) {
         const title = document.querySelector("title");
         const user = getCookieValue("Username");
         title.innerText = `${user} - AgendaAI`;
-        const navLogin = document.querySelector("#nav-login");
-        const registers = document.querySelectorAll("#register");
-        const logins = document.querySelectorAll("#login");
-        console.log(user);
-        document.querySelector("#username").innerText =
-          "Bem-vindo, " + user + "!";
-        registers.forEach((d) => d.remove());
-        logins.forEach((d) => d.remove());
-        navLogin.removeChild(registers);
-        navLogin.removeChild(logins);
+        document.querySelector("#username").innerText = "Bem-vindo, " + user + "!";
+        document.querySelectorAll("#register").forEach((d) => d.remove());
+        document.querySelectorAll("#login").forEach((d) => d.remove());
       }
-    </script>
-    <script src="./js/formatter.js"></script>
-    <script>
+      // Logout dinâmico no menu lateral
       const offcanvasNav = document.querySelector("#offcanvas-nav");
-      const liNav = document.createElement("li");
-      liNav.classList.add("nav-item");
-      liNav.classList.add("mx-2");
-
-      const aNav = document.createElement("a");
-      aNav.classList.add("nav-link");
-      aNav.classList.add("text-white");
-      aNav.style.cursor = "pointer";
-
-      const iNav = document.createElement("i");
-      iNav.classList.add("fa-solid");
-      iNav.classList.add("fa-right-from-bracket");
-      iNav.classList.add("mx-1");
-
-      aNav.appendChild(iNav);
-      aNav.appendChild(document.createTextNode("Logout"));
-
-      aNav.addEventListener("click", () => {
-        document.cookie = null;
-        window.location.href = "./index.html";
-      });
-
-      liNav.appendChild(aNav);
-      if (getCookieValue("Username")) {
+      if (offcanvasNav && getCookieValue("Username")) {
+        const liNav = document.createElement("li");
+        liNav.classList.add("nav-item", "mx-2");
+        const aNav = document.createElement("a");
+        aNav.classList.add("nav-link", "text-white");
+        aNav.style.cursor = "pointer";
+        const iNav = document.createElement("i");
+        iNav.classList.add("fa-solid", "fa-right-from-bracket", "mx-1");
+        aNav.appendChild(iNav);
+        aNav.appendChild(document.createTextNode("Logout"));
+        aNav.addEventListener("click", () => {
+          document.cookie = "";
+          window.location.href = "./index.html";
+        });
+        liNav.appendChild(aNav);
         offcanvasNav.appendChild(liNav);
       }
     </script>
