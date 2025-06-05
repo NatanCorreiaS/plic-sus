@@ -4,6 +4,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
+        const outputResponse = document.getElementById('output-response');
+        if (outputResponse) outputResponse.innerHTML = '';
+
         const formData = {
             email: email,
             password: password
@@ -27,11 +30,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         })
         .then(data => {
             console.log('Login bem-sucedido:', data);
-            alert('Login realizado com sucesso!');
 
             // Se a resposta contém o email, mas não o id, buscar o id pelo email
             if (data.email === email && (!data._id && !data.id && !data.physicianId)) {
-                // Buscar todos os médicos e encontrar o id pelo email
                 fetch('https://governmental-rand-apparently-hairy.trycloudflare.com/api/physicians')
                     .then(res => res.json())
                     .then(physicians => {
@@ -39,29 +40,47 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                         if (medico && medico._id) {
                             localStorage.setItem('physicianId', medico._id);
                             localStorage.setItem('physicianName', medico.name || medico.username || '');
-                            window.location.href = '../physician.html';
+                            if (outputResponse) {
+                                outputResponse.innerHTML = `<div class="alert alert-success">Login realizado com sucesso!</div>`;
+                            }
+                            setTimeout(() => {
+                                window.location.href = '../physician.html';
+                            }, 1000);
                         } else {
-                            alert('Erro: Não foi possível identificar o ID do médico.');
+                            if (outputResponse) {
+                                outputResponse.innerHTML = `<div class="alert alert-danger">Erro: Não foi possível identificar o ID do médico.</div>`;
+                            }
                         }
                     })
                     .catch(() => {
-                        alert('Erro ao buscar informações do médico.');
+                        if (outputResponse) {
+                            outputResponse.innerHTML = `<div class="alert alert-danger">Erro ao buscar informações do médico.</div>`;
+                        }
                     });
             } else {
                 // Tenta encontrar o ID do médico em diferentes campos
                 let physicianId = data._id || data.id || data.physicianId || (data.physician && (data.physician._id || data.physician.id));
                 let physicianName = data.name || data.username || (data.physician && (data.physician.name || data.physician.username)) || '';
                 if (!physicianId) {
-                    alert('Erro: Não foi possível identificar o ID do médico retornado pela API.');
+                    if (outputResponse) {
+                        outputResponse.innerHTML = `<div class="alert alert-danger">Erro: Não foi possível identificar o ID do médico retornado pela API.</div>`;
+                    }
                     return;
                 }
                 localStorage.setItem('physicianId', physicianId);
                 localStorage.setItem('physicianName', physicianName);
-                window.location.href = '../physician.html';
+                if (outputResponse) {
+                    outputResponse.innerHTML = `<div class="alert alert-success">Login realizado com sucesso!</div>`;
+                }
+                setTimeout(() => {
+                    window.location.href = '../physician.html';
+                }, 1000);
             }
         })
         .catch((error) => {
             console.error('Erro no login:', error);
-            alert(`Ocorreu um erro ao fazer login: ${error.message}`);
+            if (outputResponse) {
+                outputResponse.innerHTML = `<div class="alert alert-danger">Ocorreu um erro ao fazer login: ${error.message}</div>`;
+            }
         });
     });

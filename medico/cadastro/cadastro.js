@@ -16,14 +16,18 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         sexta: document.getElementById('sexta').checked
     };
 
+    // Elemento para exibir mensagens
+    const outputResponse = document.getElementById('output-response');
+    if (outputResponse) outputResponse.innerHTML = '';
+
     if (password !== confirmPassword) {
-        alert('As senhas não coincidem! Por favor, verifique.');
+        if (outputResponse) {
+            outputResponse.innerHTML = `<div class="alert alert-danger">As senhas não coincidem! Por favor, verifique.</div>`;
+        }
         return;
     }
 
- 
     const availableDaysArray = Object.keys(availableDaysCheckboxes).filter(day => availableDaysCheckboxes[day]);
-   
 
     const formData = {
         name: name,
@@ -49,11 +53,18 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     })
     .then(data => {
         console.log('Sucesso:', data);
-        alert('Cadastro realizado com sucesso!');
-        //redirecionar
+        if (outputResponse) {
+            outputResponse.innerHTML = `<div class="alert alert-success">Cadastro realizado com sucesso!</div>`;
+        }
+        // Redirecionar após um tempo
+        setTimeout(() => {
+            window.location.href = '../login/login.html';
+        }, 1500);
     })
     .catch((error) => {
         console.error('Erro no cadastro:', error);
-        alert(`Ocorreu um erro ao cadastrar: ${error.message || 'Tente novamente.'}`);
+        if (outputResponse) {
+            outputResponse.innerHTML = `<div class="alert alert-danger">Ocorreu um erro ao cadastrar: ${error.message || 'Tente novamente.'}</div>`;
+        }
     });
 });
