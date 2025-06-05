@@ -53,14 +53,22 @@ function listarConsultas(medicoId) {
         const paciente = users.find(u => String(u._id).trim() === String(c.userId).trim());
         const pacienteNome = paciente ? paciente.username : 'Paciente não encontrado';
 
+        // Card Bootstrap
+        const cardCol = document.createElement('div');
+        cardCol.className = 'col-md-6 col-lg-4';
+
         const card = document.createElement('div');
-        card.className = 'consulta-card';
+        card.className = 'card shadow-sm h-100';
+
         card.innerHTML = `
-          <p><strong>Paciente:</strong> ${pacienteNome}</p>
-          <p><strong>Data:</strong> ${data}, ${hora}</p>
-          <p><strong>Clínica:</strong> ${c.clinic}</p>
+          <div class="card-body">
+            <h5 class="card-title mb-2"><i class="fa-solid fa-user me-2"></i>${pacienteNome}</h5>
+            <p class="card-text mb-1"><strong>Data:</strong> ${data}, ${hora}</p>
+            <p class="card-text mb-1"><strong>Clínica:</strong> ${c.clinic}</p>
+          </div>
         `;
-        container.appendChild(card);
+        cardCol.appendChild(card);
+        container.appendChild(cardCol);
       });
     })
     .catch(err => {
