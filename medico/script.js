@@ -77,6 +77,25 @@ function listarConsultas(medicoId) {
     });
 }
 
+// Função de logout para physician (localStorage)
+function logoutPhysician() {
+  localStorage.removeItem('physicianId');
+  localStorage.removeItem('physicianName');
+  localStorage.clear();
+  window.location.href = "../index.html";
+}
+
+// Adiciona o evento ao botão de logout, se existir
+document.addEventListener('DOMContentLoaded', function () {
+  const btn = document.getElementById('logoutBtn');
+  if (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      logoutPhysician();
+    });
+  }
+});
+
 window.onload = carregarPacientes;
 
 console.log("Script de consultas carregado com sucesso!");

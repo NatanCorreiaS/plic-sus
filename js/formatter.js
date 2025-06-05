@@ -259,7 +259,7 @@ async function fetchAppointments() {
 // Cria consulta seguindo exatamente a documentação da API
 async function createAppointment(physicianId, userId, dateTime) {
   try {
-    // Os IDs são strings (ObjectIds do MongoDB), não precisam de conversão para integer
+    // Os IDs são strings (ObjectId do MongoDB), não precisam de conversão para integer
     console.log('Enviando dados para API:', {
       physicianId: physicianId,  // String ObjectId
       userId: userId,           // String ObjectId (campo correto conforme documentação)
@@ -403,84 +403,32 @@ function initializeAppointmentForm() {
   });
 }
 
-// Inicializa o formulário de agendamento
-function initializeAppointmentForm() {
-  const appointmentForm = document.getElementById("appointment-form");
-  if (!appointmentForm) return;
-
-  appointmentForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (outputResponse) outputResponse.innerHTML = "";
-
-    const isMobileView = window.innerWidth < 768;
-    const physicianId = isMobileView ? (physicianMobileSelect?.value || "") : (physicianSelect?.value || "");
-    const dateValue = isMobileView ? (dateMobile?.value || "") : (dateInput?.value || "");
-    const hourValue = isMobileView ? (hourMobileSelect?.value || "") : (hourSelect?.value || "");
-
-    // Validação dos campos obrigatórios
-    if (!physicianId || !dateValue || !hourValue) {
-      if (outputResponse) outputResponse.innerHTML = '<div class="alert alert-danger">Por favor, preencha todos os campos.</div>';
-      return;
-    }
-
-    // Validação final do dia da semana antes do submit
-    if (!isDateValidForPhysician(dateValue, physicianId)) {
-      if (outputResponse) outputResponse.innerHTML = '<div class="alert alert-danger">O dia selecionado não está disponível para este médico. Verifique a data.</div>';
-      return;
-    }
-
-    const userId = await getUserId();  // Mudança: agora é userId
-    if (!userId) {
-      if (outputResponse) outputResponse.innerHTML = '<div class="alert alert-danger">Usuário não autenticado. Faça login novamente.</div>';
-      return;
-    }
-
-    // Monta a data no formato ISO exato conforme documentação: "2023-10-01T10:00:00Z"
-    const dateTime = `${dateValue}T${hourValue}:00.000Z`;
-
-    console.log('Dados do formulário:', {
-      physicianId,     // String ObjectId
-      userId,          // String ObjectId (campo correto)
-      dateTime,
-      originalDate: dateValue,
-      originalHour: hourValue
+// Função de logout para user (remove todos os cookies relevantes)
+function logoutUser() {
+  // Lista de cookies a remover
+  const cookiesToRemove = ["Session", "Username", "Email"];
+  const paths = ["/", window.location.pathname.replace(/\/[^\/]*$/, "") || "/"];
+  cookiesToRemove.forEach(cookieName => {
+    // Remove para cada path possível
+    paths.forEach(path => {
+      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path};`;
     });
-
-    try {
-      if (outputResponse) outputResponse.innerHTML = '<div class="alert alert-info">Agendando consulta...</div>';
-      
-      const result = await createAppointment(physicianId, userId, dateTime);  // Mudança: userId em vez de patientId
-      
-      // Verifica se a resposta contém ID (conforme documentação da API)
-      if (result && (result.id || result._id)) { 
-        if (outputResponse) outputResponse.innerHTML = '<div class="alert alert-success">Consulta agendada com sucesso!</div>';
-        
-        // Limpa o formulário
-        appointmentForm.reset();
-        
-        // Limpa campos de data manualmente
-        if (dateInput) {
-          dateInput.value = "";
-          dateInput.min = "";
-          dateInput.max = "";
-        }
-        if (dateMobile) {
-          dateMobile.value = "";
-          dateMobile.min = "";
-          dateMobile.max = "";
-        }
-
-        // Atualiza a lista de consultas
-        await fetchAppointments();
-      } else {
-        throw new Error(result.message || 'Resposta inválida da API - consulta não foi criada.');
-      }
-    } catch (error) {
-      console.error('Erro ao submeter agendamento:', error);
-      if (outputResponse) outputResponse.innerHTML = `<div class="alert alert-danger">Erro ao agendar consulta: ${error.message}</div>`;
-    }
+    // Tenta remover sem path também
+    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
   });
+  window.location.href = "./index.html";
 }
+
+// Adiciona o evento ao botão de logout, se existir
+document.addEventListener('DOMContentLoaded', function () {
+  const btn = document.getElementById('logoutBtn');
+  if (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      logoutUser();
+    });
+  }
+});
 
 // Inicialização principal
 async function initializeApp() {

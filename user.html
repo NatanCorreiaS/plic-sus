@@ -79,11 +79,6 @@
                   >Clinicas</a
                 >
               </li>
-              <li class="nav-item mx-2">
-                <a class="nav-link text-white" href="./about.html"
-                  ><i class="fa-solid fa-circle-info mx-1"></i>Sobre</a
-                >
-              </li>
             </ul>
 
             <!-- LOGIN -->
@@ -236,8 +231,17 @@
         aNav.appendChild(iNav);
         aNav.appendChild(document.createTextNode("Logout"));
         aNav.addEventListener("click", () => {
-          document.cookie = "";
-          window.location.href = "./index.html";
+          if (typeof logoutUser === "function") {
+            logoutUser();
+          } else {
+            // fallback caso o script não tenha carregado
+            const cookiesToRemove = ["Session", "Username", "Email"];
+            cookiesToRemove.forEach(cookieName => {
+              document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+              document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+            });
+            window.location.href = "./index.html";
+          }
         });
         liNav.appendChild(aNav);
         offcanvasNav.appendChild(liNav);

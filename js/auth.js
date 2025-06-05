@@ -7,34 +7,22 @@ const registerButton = document.getElementById("register-button");
 const URL = "https://governmental-rand-apparently-hairy.trycloudflare.com/api/users";
 
 const getCookieValue = (cookieName) => {
-  // Exemplo do valor do cookie
-  const cookieValue = document.cookie;
-
-  // Dividindo o valor do cookie por vírgulas
-  const cookieParts = cookieValue.split(",");
-
-  // Iterando sobre as partes do cookie
-  for (let i = 0; i < cookieParts.length; i++) {
-    // Verificando se a parte atual começa com "Session"
-    if (cookieParts[i].startsWith(cookieName)) {
-      // Obtendo o valor após o ":" (ignorando "Session:")
-      let sessionValue = cookieParts[i].split(":")[1];
-
-      // Removendo "undefined" (caso haja)
-      sessionValue = sessionValue.replace(/undefined/g, "").trim();
-
-      //   console.log("Valor da Session:", sessionValue);
-      return sessionValue;
+  // Busca o cookie pelo nome correto (usando "=")
+  const cookies = document.cookie.split("; ");
+  for (let i = 0; i < cookies.length; i++) {
+    const [name, value] = cookies[i].split("=");
+    if (name === cookieName) {
+      return value;
     }
   }
+  return undefined;
 };
 
 const receiveUser = async () => {
   if (document.cookie) {
-    console.log("receive user function used");
     if (
       getCookieValue("Session") === undefined ||
-      getCookieValue("Session" === null)
+      getCookieValue("Session") === null
     ) {
       return;
     }
@@ -49,16 +37,14 @@ const receiveUser = async () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Verifica se o usuário está logado
         if (
-          data.message !== "No user with that session" ||
+          data.message !== "No user with that session" &&
           data.message !== "Invalid session"
         ) {
           // Verifica se o cookie já existe
           if (!getCookieValue("Username") || !getCookieValue("Email")) {
-            console.log("distribuindo dados do usuário");
-            document.cookie = document.cookie + ",Username:" + data.username;
-            document.cookie = document.cookie + ",Email:" + data.email;
+            document.cookie = `Username=${data.username}; path=/;`;
+            document.cookie = `Email=${data.email}; path=/;`;
           }
         }
       });
@@ -66,31 +52,19 @@ const receiveUser = async () => {
 };
 
 const redirect = () => {
-  console.log("documento cookie: ", document.cookie);
-  if (document.cookie !== null || document.cookie !== undefined) {
+  if (document.cookie !== null && document.cookie !== undefined) {
     window.location.href = "./user.html";
   }
 };
 
 const login = async () => {
-  // Envia os dados do formulário para o servidor
-  // document.querySelector("form").submit();
-
-  // Evita que a página seja recarregada
-  // window.location.href = "#";
-
-  //   Evita que a página seja recarregada, porém está obsoleta
-  // event.preventDefault();
-
   if (!email.value) {
     const outputResponse = document.getElementById("output-response");
     while (outputResponse.firstChild) {
       outputResponse.removeChild(outputResponse.firstChild);
     }
-    // outputResponse.removeChild(outputResponse.firstChild);
     const negativeResponse = document.createElement("div");
-    negativeResponse.classList.add("alert");
-    negativeResponse.classList.add("alert-danger");
+    negativeResponse.classList.add("alert", "alert-danger");
     negativeResponse.innerHTML = "Insira um email!";
     outputResponse.appendChild(negativeResponse);
     return;
@@ -100,10 +74,8 @@ const login = async () => {
     while (outputResponse.firstChild) {
       outputResponse.removeChild(outputResponse.firstChild);
     }
-    // outputResponse.removeChild(outputResponse.firstChild);
     const negativeResponse = document.createElement("div");
-    negativeResponse.classList.add("alert");
-    negativeResponse.classList.add("alert-danger");
+    negativeResponse.classList.add("alert", "alert-danger");
     negativeResponse.innerHTML = "Insira uma senha!";
     outputResponse.appendChild(negativeResponse);
     return;
@@ -126,15 +98,14 @@ const login = async () => {
         while (outputResponse.firstChild) {
           outputResponse.removeChild(outputResponse.firstChild);
         }
-        // outputResponse.removeChild(outputResponse.firstChild);
         const negativeResponse = document.createElement("div");
-        negativeResponse.classList.add("alert");
-        negativeResponse.classList.add("alert-danger");
+        negativeResponse.classList.add("alert", "alert-danger");
         negativeResponse.innerHTML = "Usuário não encontrado!";
         outputResponse.appendChild(negativeResponse);
         return;
       }
-      document.cookie = "Session:" + data.session;
+      // Corrigido: cookie nomeado corretamente
+      document.cookie = `Session=${data.session}; path=/;`;
     });
 
   await receiveUser();
@@ -149,10 +120,8 @@ const register = async () => {
     while (outputResponse.firstChild) {
       outputResponse.removeChild(outputResponse.firstChild);
     }
-    // outputResponse.removeChild(outputResponse.firstChild);
     const negativeResponse = document.createElement("div");
-    negativeResponse.classList.add("alert");
-    negativeResponse.classList.add("alert-danger");
+    negativeResponse.classList.add("alert", "alert-danger");
     negativeResponse.innerHTML = "Insira um email!";
     outputResponse.appendChild(negativeResponse);
     return;
@@ -162,10 +131,8 @@ const register = async () => {
     while (outputResponse.firstChild) {
       outputResponse.removeChild(outputResponse.firstChild);
     }
-    // outputResponse.removeChild(outputResponse.firstChild);
     const negativeResponse = document.createElement("div");
-    negativeResponse.classList.add("alert");
-    negativeResponse.classList.add("alert-danger");
+    negativeResponse.classList.add("alert", "alert-danger");
     negativeResponse.innerHTML = "Insira um nome de usuário!";
     outputResponse.appendChild(negativeResponse);
     return;
@@ -175,10 +142,8 @@ const register = async () => {
     while (outputResponse.firstChild) {
       outputResponse.removeChild(outputResponse.firstChild);
     }
-    // outputResponse.removeChild(outputResponse.firstChild);
     const negativeResponse = document.createElement("div");
-    negativeResponse.classList.add("alert");
-    negativeResponse.classList.add("alert-danger");
+    negativeResponse.classList.add("alert", "alert-danger");
     negativeResponse.innerHTML = "Insira uma senha!";
     outputResponse.appendChild(negativeResponse);
     return;
@@ -189,16 +154,13 @@ const register = async () => {
     while (outputResponse.firstChild) {
       outputResponse.removeChild(outputResponse.firstChild);
     }
-    // outputResponse.removeChild(outputResponse.firstChild);
     const negativeResponse = document.createElement("div");
-    negativeResponse.classList.add("alert");
-    negativeResponse.classList.add("alert-danger");
+    negativeResponse.classList.add("alert", "alert-danger");
     negativeResponse.innerHTML = "Senhas não coincidem!";
     outputResponse.appendChild(negativeResponse);
     return;
   }
 
-  console.log("Tentando criar usuário");
   await fetch(`${URL}/register`, {
     method: "POST",
     headers: {
@@ -212,29 +174,24 @@ const register = async () => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("Segundo estágio");
       if (data.message == "User created successfully") {
         const outputResponse = document.getElementById("output-response");
         while (outputResponse.firstChild) {
           outputResponse.removeChild(outputResponse.firstChild);
         }
         const positiveResponse = document.createElement("div");
-        positiveResponse.classList.add("alert");
-        positiveResponse.classList.add("alert-success");
+        positiveResponse.classList.add("alert", "alert-success");
         positiveResponse.innerHTML = "Usuário criado com sucesso!";
         outputResponse.appendChild(positiveResponse);
-        console.log(data);
       } else {
         const outputResponse = document.getElementById("output-response");
         while (outputResponse.firstChild) {
           outputResponse.removeChild(outputResponse.firstChild);
         }
         const negativeResponse = document.createElement("div");
-        negativeResponse.classList.add("alert");
-        negativeResponse.classList.add("alert-danger");
+        negativeResponse.classList.add("alert", "alert-danger");
         negativeResponse.innerHTML = "Erro ao criar usuário!";
         outputResponse.appendChild(negativeResponse);
-        console.log(data);
       }
     });
 };
@@ -242,7 +199,6 @@ const register = async () => {
 // Adding event listeners
 if (loginButton) {
   loginButton.addEventListener("click", login);
-  console.log("login button event listener added");
 }
 if (registerButton) {
   registerButton.addEventListener("click", register);
