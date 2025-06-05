@@ -9,7 +9,7 @@ const outputResponse = document.getElementById("output-response");
 const appointmentsContainer = document.getElementById("appointments-container");
 const pastAppointmentsContainer = document.getElementById("past-appointments");
 
-const URL_API = "https://publisher-sit-recycling-expo.trycloudflare.com";
+const URL_API = "https://governmental-rand-apparently-hairy.trycloudflare.com";
 
 let physiciansList = []; // Armazenará a lista de médicos com availableDaysNumeric
 let currentUserId = null;

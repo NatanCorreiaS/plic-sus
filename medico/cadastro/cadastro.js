@@ -34,7 +34,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         availableDays: availableDaysArray
     };
 
-    fetch('https://loved-pipeline-postage-receiving.trycloudflare.com/api/physicians/register', {
+    fetch('https://governmental-rand-apparently-hairy.trycloudflare.com/api/physicians/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

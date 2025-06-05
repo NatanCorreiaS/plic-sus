@@ -4,7 +4,7 @@ const email = document.getElementById("email");
 const username = document.getElementById("username");
 const loginButton = document.getElementById("login-button");
 const registerButton = document.getElementById("register-button");
-const URL = "https://publisher-sit-recycling-expo.trycloudflare.com/api/users";
+const URL = "https://governmental-rand-apparently-hairy.trycloudflare.com/api/users";
 
 const getCookieValue = (cookieName) => {
   // Exemplo do valor do cookie
